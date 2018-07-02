@@ -269,7 +269,9 @@ def test_unique(mixer):
 
 
 def test_guard(mixer):
+    cnt = Rabbit.objects.filter(username='maxi').count()
     r1 = mixer.guard(username='maxi').blend(Rabbit, username='maxi')
+    assert Rabbit.objects.filter(username='maxi').count() == cnt + 1
     r2 = mixer.guard(username='maxi').blend(Rabbit, username='maxi')
     assert r1
     assert r1 == r2
